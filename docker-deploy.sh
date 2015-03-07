@@ -84,7 +84,7 @@ DOCKER_OPTS="--graph=$DOCKER_GRAPH_DIR --host=unix:///var/run/docker.sock --host
 
 ### script arguments ###
 
-component="$1"
+command="$1"
 host="$2"
 
 ### atexit handlers ###
@@ -107,14 +107,14 @@ trap atexit EXIT
 ### helper functions ###
 
 usage() {
-    echo "$(basename $0) - Deploy a docker component to a remote host via SSH."
+    echo "$(basename $0) - Deploy docker to a remote host via SSH."
     echo
-    echo "Usage: $(basename $0) <component> <host>"
+    echo "Usage: $(basename $0) <command> <host>"
     echo
-    echo "Valid components:"
+    echo "Valid commands:"
     echo
-    echo "  docker             Deploy docker"
-    echo "  cacert             Install the docker-deploy CA cert into the trust database"
+    echo "  docker     Deploy docker to <host>"
+    echo "  cacert     Install the docker-deploy root CA cert into the trust database on <host>"
     echo
     exit 0
 }
@@ -491,7 +491,7 @@ if [ -n "$host" ]; then
     create_remote_tmp_dir "$host"
 fi
 
-case "$component" in
+case "$command" in
     docker)
         if [ -n "$host" ]; then
             upload_deploy_script "$host"
