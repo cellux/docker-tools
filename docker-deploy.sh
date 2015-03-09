@@ -216,7 +216,7 @@ upload_certs() {
         local extfile="$DEPLOY_WORKDIR/$ip/extfile.cnf"
         : > "$extfile"
         echo "subjectAltName = IP:$ip" >> "$extfile"
-        echo "extendedKeyUsage = serverAuth,clientAuth" >> "$extfile"
+        echo "extendedKeyUsage = serverAuth" >> "$extfile"
         openssl x509 \
                 -req \
                 -in "$DEPLOY_WORKDIR/$ip/req.pem" \
