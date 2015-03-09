@@ -7,6 +7,7 @@ SUITE=wheezy
 TARGET="$PWD/rootfs"
 MIRROR=http://ftp.hu.debian.org/debian
 
+[ -d "$TARGET" ] && sudo rm -rf "$TARGET"
 sudo debootstrap --variant=$VARIANT $SUITE "$TARGET" $MIRROR
 sudo find "$TARGET"/var/cache/apt/archives -type f -name '*.deb' -delete
 sudo find "$TARGET"/var/lib/apt/lists -type f -delete
